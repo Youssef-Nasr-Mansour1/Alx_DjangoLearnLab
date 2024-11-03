@@ -1,5 +1,6 @@
-# Assuming you have a Book class and you've created an instance called 'my_book'
+# Retrieve Book Attributes
 
-# Retrieve and display all attributes of the book
-book_attributes = vars(my_book)
-print(book_attributes)
+To retrieve a specific book using Django's ORM, use the following command:
+
+```python
+book = Book.objects.get(title="1984")
