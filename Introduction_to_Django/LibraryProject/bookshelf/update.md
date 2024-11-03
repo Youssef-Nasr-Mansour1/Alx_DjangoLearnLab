@@ -1,11 +1,10 @@
 # Update Book Title
 
-## Command
-To update the title of the book “1984” to “Nineteen Eighty-Four” in the library system, use the following command:
+To update the title of the book "1984" to "Nineteen Eighty-Four" and save the changes, use the following Python command:
 
 ```python
-# Update the title of the book from "1984" to "Nineteen Eighty-Four"
-library[0].title = "Nineteen Eighty-Four"  # Assuming "1984" is the first book in the list
+# Assuming you have already retrieved the book instance and it's stored in the variable 'book'
 
-# Expected Output
-print(library[0].title)  # This should output: Nineteen Eighty-Four
+# Update the title of the book
+book.title = "Nineteen Eighty-Four"
+book.save()
