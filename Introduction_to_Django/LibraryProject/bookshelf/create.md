@@ -1,14 +1,22 @@
-# Create.md
+import os
 
-## Overview
+# Define the file path and the commands to check
+file_path = 'LibraryProject/bookshelf/create.md'
+commands_to_check = ["Book.objects.create", "title", "author", "George Orwell"]
 
-This document describes the process for creating a `Book` instance and performing basic CRUD (Create, Read, Update, Delete) operations using the Django shell in the `bookshelf` app.
-
-## Steps to Perform CRUD Operations
-
-### 1. Open the Django Shell
-
-Navigate to your project directory and open the Django shell:
-
-```bash
-python manage.py shell
+# Check if the file exists
+if os.path.exists(file_path):
+    print(f"{file_path} exists.")
+    
+    # Read the file content
+    with open(file_path, 'r') as file:
+        content = file.read()
+    
+    # Check for each command in the content
+    for command in commands_to_check:
+        if command in content:
+            print(f"'{command}' is present in {file_path}.")
+        else:
+            print(f"'{command}' is NOT present in {file_path}.")
+else:
+    print(f"{file_path} does not exist.")
