@@ -3,13 +3,12 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# UserProfile Model with predefined roles
+# UserProfile model with predefined roles
 class UserProfile(models.Model):
-    # Define role constants for maintainability
+    # Role choices as constants for maintainability
     ADMIN = 'Admin'
     MEMBER = 'Member'
     
-    # Define role choices for the 'role' field
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
         (MEMBER, 'Member'),
@@ -24,14 +23,14 @@ class UserProfile(models.Model):
         return f"{self.user.username} - {self.get_role_display()}"
 
 
-# Signal to create UserProfile when a new User is created
+# Signal to create a UserProfile when a new User is created
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         # Create the UserProfile instance for the newly created User
         UserProfile.objects.create(user=instance)
 
-# Signal to save UserProfile whenever the associated User is saved
+# Signal to save the UserProfile whenever the associated User is saved
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
