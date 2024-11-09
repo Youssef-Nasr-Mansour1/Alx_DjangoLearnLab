@@ -5,12 +5,12 @@ from django.dispatch import receiver
 
 # UserProfile model with predefined roles
 class UserProfile(models.Model):
-    ,'Admin'
-    ,'Member'
+    Admin = 'Admin'
+    Member = 'Member'
     
     ROLE_CHOICES = [
-        (ADMIN, 'Admin'),
-        (MEMBER, 'Member'),
+        (Admin, 'Admin'),
+        (Member, 'Member'),
     ]
     
     # One-to-one relationship with Django's built-in User model
