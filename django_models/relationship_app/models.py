@@ -5,9 +5,8 @@ from django.dispatch import receiver
 
 # UserProfile model with predefined roles
 class UserProfile(models.Model):
-    # Role choices as constants for maintainability
-    ADMIN = 'Admin'
-    MEMBER = 'Member'
+    'Admin'
+    'Member'
     
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
