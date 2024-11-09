@@ -9,8 +9,8 @@ class UserProfile(models.Model):
     Member = 'Member'
     
     ROLE_CHOICES = [
-        (Admin, 'Admin'),
-        (Member, 'Member'),
+        (ADMIN, 'Admin'),
+        (MEMBER, 'Member'),
     ]
     
     # One-to-one relationship with Django's built-in User model
