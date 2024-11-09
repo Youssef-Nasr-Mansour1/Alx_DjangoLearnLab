@@ -9,7 +9,7 @@ urlpatterns = [
 
 # relationship_app/urls.py
 from django.urls import path
-from .views import register
+from .views.register import register
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
