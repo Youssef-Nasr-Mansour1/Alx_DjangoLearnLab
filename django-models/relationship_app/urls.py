@@ -13,7 +13,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('login/', views.login_view, name='login'),  # Login URL
-    path('logout/', views.logout_view, name='logout'),  # Logout URL
-    path('register/', views.register, name='register'),  # Register URL
+    path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
+    path('register/', views.register, name='register'),  # Keep the register view as function-based
 ]
