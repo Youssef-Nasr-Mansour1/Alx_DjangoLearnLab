@@ -69,3 +69,22 @@ def librarian_view(request):
 @user_passes_test(lambda u: u.userprofile.role == 'Member')
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+# relationship_app/views.py
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
+
+# Admin view: Only accessible to Admin users
+@user_passes_test(lambda u: u.userprofile.role == 'Admin')
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+# Librarian view: Only accessible to Librarian users
+@user_passes_test(lambda u: u.userprofile.role == 'Librarian')
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+# Member view: Only accessible to Member users
+@user_passes_test(lambda u: u.userprofile.role == 'Member')
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
