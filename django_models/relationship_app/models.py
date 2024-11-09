@@ -62,16 +62,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ADMIN = 'Admin'
+    MEMBER = 'Member'
+    
     ROLE_CHOICES = [
-        ('Admin', 'Admin'),
-        ('Member', 'Member'),
+        (ADMIN, 'Admin'),
+        (MEMBER, 'Member'),
     ]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='Member')
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=MEMBER)
 
     def __str__(self):
-        return self.user.username
-
+        return f"{self.user.username} - {self.role}"
 
 # Signal to create a UserProfile when a new user is created
 @receiver(post_save, sender=User)
