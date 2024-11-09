@@ -62,8 +62,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    ADMIN = 'Admin'
-    MEMBER = 'Member'
+    ADMIN = 'Admin', 'Member'
     
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
