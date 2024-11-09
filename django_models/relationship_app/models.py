@@ -5,31 +5,33 @@ from django.dispatch import receiver
 
 # UserProfile Model with predefined roles
 class UserProfile(models.Model):
-    # Define the available roles as constants for maintainability
+    # Define role constants for maintainability
     ADMIN = 'Admin'
     MEMBER = 'Member'
     
+    # Define role choices for the 'role' field
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
         (MEMBER, 'Member'),
     ]
     
-    # Link UserProfile to the User model with a one-to-one relationship
+    # One-to-one relationship with Django's built-in User model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=MEMBER)
 
     def __str__(self):
-        # Display the username and the role in a readable format
+        # Return a human-readable string representation of the profile
         return f"{self.user.username} - {self.get_role_display()}"
 
-# Signal to automatically create and save UserProfile when a User is created
+
+# Signal to create UserProfile when a new User is created
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        # Create a UserProfile instance when a new User is created
+        # Create the UserProfile instance for the newly created User
         UserProfile.objects.create(user=instance)
 
+# Signal to save UserProfile whenever the associated User is saved
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    # Save the UserProfile instance whenever the associated User instance is saved
     instance.userprofile.save()
