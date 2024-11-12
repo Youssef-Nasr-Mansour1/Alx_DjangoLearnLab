@@ -1,0 +1,21 @@
+<!-- bookshelf/templates/bookshelf/form_example.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+<body>
+    <h1>Add a New Book</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- This renders each form field as a paragraph -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <p><a href="{% url 'book_list' %}">Back to Book List</a></p>  <!-- Link to book list page -->
+</body>
+</html>
