@@ -121,3 +121,17 @@ def search_books(request):
     # Safely using Django ORM to filter books
     books = Book.objects.filter(title__icontains=query)
     return render(request, 'bookshelf/book_list.html', {'books': books})
+
+from django.shortcuts import render
+from .models import Book
+from .forms import SearchForm
+
+def search_books(request):
+    form = SearchForm(request.GET)
+    books = []
+    
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        books = Book.objects.filter(title__icontains=query)  # Safe query using Django ORM
+
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
