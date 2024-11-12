@@ -135,3 +135,19 @@ def search_books(request):
         books = Book.objects.filter(title__icontains=query)  # Safe query using Django ORM
 
     return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
+
+# bookshelf/views.py
+from django.shortcuts import render, redirect
+from .forms import ExampleForm  # Ensure this line is included
+from .models import Book
+
+def add_book(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new book entry
+            return redirect('book_list')  # Redirect to the book list page
+    else:
+        form = ExampleForm()  # Initialize an empty form
+
+    return render(request, 'bookshelf/form_example.html', {'form': form})
