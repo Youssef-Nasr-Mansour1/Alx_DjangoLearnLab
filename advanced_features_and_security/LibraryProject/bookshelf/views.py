@@ -113,3 +113,11 @@ def delete_book(request, book_id):
         book.delete()
         return redirect('book_list')
     return render(request, 'relationship_app/delete_book.html', {'book': book})
+
+from .models import Book
+
+def search_books(request):
+    query = request.GET.get('search')
+    # Safely using Django ORM to filter books
+    books = Book.objects.filter(title__icontains=query)
+    return render(request, 'bookshelf/book_list.html', {'books': books})

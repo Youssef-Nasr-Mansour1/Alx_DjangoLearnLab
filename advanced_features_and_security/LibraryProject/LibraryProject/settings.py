@@ -129,3 +129,41 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# SECURITY SETTINGS
+DEBUG = False  # Disable debug mode in production
+
+# Prevent cross-site scripting attacks in browsers
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking attacks by denying the ability to embed your site in an iframe
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent content sniffing attacks (browser will only interpret content as declared type)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure that cookies are only sent over secure connections (HTTPS)
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Use HTTP Strict Transport Security (HSTS) to ensure HTTP connections are upgraded to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow preloading HSTS in browsers
+
+INSTALLED_APPS = [
+    # Other apps
+    'csp',
+]
+
+MIDDLEWARE = [
+    # Other middleware
+    'csp.middleware.CSPMiddleware',
+]
+
+# Define your Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'")
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+CSP_IMG_SRC = ("'self'", "data:")
+CSP_FONT_SRC = ("'self'",)
