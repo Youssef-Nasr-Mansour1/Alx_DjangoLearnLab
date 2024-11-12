@@ -1,0 +1,27 @@
+<!-- bookshelf/templates/bookshelf/book_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Library Book List</h1>
+
+    <p><a href="{% url 'add_book' %}">Add a New Book</a></p> <!-- Link to the form for adding a book -->
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <strong>{{ book.title }}</strong> by {{ book.author }}<br>
+                <em>{{ book.description }}</em>
+            </li>
+        {% empty %}
+            <p>No books available.</p>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
