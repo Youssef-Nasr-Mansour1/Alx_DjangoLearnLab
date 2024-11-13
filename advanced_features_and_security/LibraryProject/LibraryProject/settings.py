@@ -167,3 +167,10 @@ CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'")
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
 CSP_IMG_SRC = ("'self'", "data:")
 CSP_FONT_SRC = ("'self'",)
+
+# Redirect HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+
+# Clickjacking protection
+X_FRAME_OPTIONS = "DENY"
