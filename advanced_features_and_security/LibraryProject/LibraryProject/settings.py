@@ -174,3 +174,5 @@ SECURE_SSL_REDIRECT = True
 
 # Clickjacking protection
 X_FRAME_OPTIONS = "DENY"
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
