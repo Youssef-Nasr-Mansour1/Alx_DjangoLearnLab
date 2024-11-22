@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
         'api',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,13 @@ class MyAdminSite(AdminSite):
     site_header = "My Custom Admin"
 
 default_site = 'myapp.admin.MyAdminSite'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Default to authenticated users
+    ]
+}

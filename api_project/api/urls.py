@@ -23,3 +23,11 @@ urlpatterns = [
     # Include the router URLs for all CRUD operations
     path('', include(router.urls)),
 ]
+
+from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path
+
+urlpatterns = [
+    # Token retrieval endpoint
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+]

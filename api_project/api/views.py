@@ -13,3 +13,11 @@ class BookList(generics.ListAPIView):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()  # The data to be exposed via the API
     serializer_class = BookSerializer  # The serializer that converts model instances into JSON
+
+
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]  # Only authenticated users can access
