@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-     'api',
+        'api',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +123,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),  # Include the api app’s URLs
+]
+
+
+from django.contrib.admin import AdminSite
+
+class MyAdminSite(AdminSite):
+    site_header = "My Custom Admin"
+
+default_site = 'myapp.admin.MyAdminSite'
