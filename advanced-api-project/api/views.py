@@ -83,6 +83,8 @@ class BookListView(generics.ListAPIView):
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework
+from rest_framework.filters import OrderingFilter
+
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
@@ -92,6 +94,7 @@ class BookListView(generics.ListAPIView):
     search_fields = ['title', 'author__name']
     ordering_fields = ['title', 'publication_year']
     ordering = ['title']  # Default ordering
+
 
 # BookListView:
 # Handles GET requests to retrieve all books. Supports search filtering.
