@@ -46,7 +46,7 @@ class BookListView(generics.ListAPIView):
     filter_backends = [SearchFilter]
     search_fields = ['title', 'author__name']
 
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
