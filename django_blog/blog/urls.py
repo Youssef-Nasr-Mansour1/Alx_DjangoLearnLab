@@ -56,20 +56,5 @@ from .views import search_posts, PostsByTagView
 
 urlpatterns += [
     path('search/', search_posts, name='post-search'),
-    path('tags/<slug:slug>/', PostsByTagView.as_view(), name='post-by-tag'),
+    path('tags/<slug:tag_slug>/', PostsByTagView.as_view(), name='post-by-tag'),
 ]
-
-from taggit.models import Tag
-
-class PostsByTagView(ListView):
-    model = Post
-    template_name = 'posts_by_tag.html'
-    context_object_name = 'posts'
-
-    def get_queryset(self):
-        return Post.objects.filter(tags__slug=self.kwargs['slug']).distinct()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tag'] = Tag.objects.get(slug=self.kwargs['slug'])
-        return context
