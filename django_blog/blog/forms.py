@@ -8,3 +8,12 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'placeholder': 'Write your comment here...'}),
         }
+
+from taggit.forms import TagField
+
+class PostForm(forms.ModelForm):
+    tags = TagField()  # Add tags to the form
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
