@@ -48,3 +48,27 @@ def profile(request):
     else:
         form = ProfileUpdateForm(instance=request.user)
     return render(request, 'blog/profile.html', {'form': form})
+
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
+from .models import Post
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'  # Template for listing posts
+    context_object_name = 'posts'
+    ordering = ['-published_date']
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'  # Template for post details
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+    template_name = 'blog/post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super
