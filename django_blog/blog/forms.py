@@ -28,5 +28,5 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content', 'tags']  # Ensure tags are included
         widgets = {
-            'tags': TagWidget(attrs={'placeholder': 'Add tags here...'}),
+            'tags': TagWidget(),
         }
