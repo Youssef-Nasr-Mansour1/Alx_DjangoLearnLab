@@ -6,7 +6,7 @@ from .views import PostViewSet, CommentViewSet, FeedViewSet
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'feed', FeedViewSet, basename='feed')  # Add feed endpoint here
+router.register(r'feed', FeedViewSet, basename='feed/')  # Add feed endpoint here
 
 # Include the router URLs
 urlpatterns = [
