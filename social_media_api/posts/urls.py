@@ -8,7 +8,7 @@ from notifications.views import NotificationListView
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'feed', FeedViewSet, basename='feed')  # Corrected basename
+router.register(r'feed', FeedViewSet, basename='feed/')  # Corrected basename
 
 # Define URL patterns for likes, unlikes, and notifications
 urlpatterns = [
