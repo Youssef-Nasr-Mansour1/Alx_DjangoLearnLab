@@ -34,10 +34,10 @@ class LikePostViewSet(viewsets.ViewSet):
         Like a post.
         """
         user = request.user
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
 
         # Get or create the like instance (prevents multiple likes by the same user)
-        like, created = Like.objects.get_or_create(user=user, post=post)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if not created:
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
