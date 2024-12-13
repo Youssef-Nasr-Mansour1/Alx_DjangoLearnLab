@@ -11,9 +11,17 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing posts.
     """
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]  # Only authenticated users can view/edit posts
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned posts to those from followed users, by filtering against a `following` parameter in the URL.
+        """
+        user = self.request.user
+        following_users = user.following.all()  # Get all users the current user is following
+        queryset = Post.objects.filter(author__in=following_users).order_by('-created_at')  # Adjust ordering as per your requirement
+        return queryset
 
 class LikePostViewSet(viewsets.ViewSet):
     """
