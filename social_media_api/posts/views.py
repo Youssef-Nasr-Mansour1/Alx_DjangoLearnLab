@@ -15,7 +15,7 @@ class LikePostView(generics.GenericAPIView):
         post = get_object_or_404(Post, pk=pk)  # Get the post or return a 404 if not found
 
         # Get or create the like instance (prevents liking the post multiple times by the same user)
-        like, created = Like.objects.get_or_create(user=user, post=post)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if not created:  # If the like already exists, return a 400 error
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
