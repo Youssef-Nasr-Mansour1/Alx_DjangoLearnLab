@@ -12,9 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')  # Use environment variable or default
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Use environment variable to toggle Debug
+DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Default to False if not set
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+# ALLOWED_HOSTS for production and local development
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') + ['yourdomain.com', 'www.yourdomain.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'posts',
     'notifications',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -39,6 +41,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://yourdomain.com",
+    "https://www.yourdomain.com",
 ]
 
 ROOT_URLCONF = 'social_media_api.urls'
@@ -124,9 +132,14 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False') == 'True'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
-# Additional security settings
 SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
 
-# For production settings, ensure settings are configured in .env
+
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+from dotenv import load_dotenv
+load_dotenv()  # This will load the variables from the .env file into os.getenv
