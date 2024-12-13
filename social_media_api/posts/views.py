@@ -8,14 +8,14 @@ from notifications.models import Notification
 from django.contrib.contenttypes.models import ContentType
 
 class LikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]  # Ensuring the user is authenticated
 
     def post(self, request, pk):
         user = request.user
         # Safely retrieve the post or return 404 if not found
         post = get_object_or_404(Post, pk=pk)
 
-        # Get or create the like instance
+        # Get or create the like instance, ensuring a user can only like a post once
         like, created = Like.objects.get_or_create(user=user, post=post)
 
         if not created:
@@ -33,7 +33,7 @@ class LikePostView(generics.GenericAPIView):
         return Response({"detail": "Post liked!"}, status=status.HTTP_200_OK)
 
 class UnlikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]  # Ensuring the user is authenticated
 
     def post(self, request, pk):
         user = request.user
