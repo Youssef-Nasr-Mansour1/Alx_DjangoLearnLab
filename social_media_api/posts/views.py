@@ -36,7 +36,7 @@ class UnlikePostView(generics.GenericAPIView):
 
     def post(self, request, pk):
         user = request.user
-        post = get_object_or_404(Post, pk=pk)  # Get the post or return a 404 if not found
+        post = generics.get_object_or_404(Post, pk=pk  # Get the post or return a 404 if not found
 
         # Check if the user has already liked the post
         like = Like.objects.filter(user=user, post=post).first()
