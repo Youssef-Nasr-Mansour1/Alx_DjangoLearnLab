@@ -1,6 +1,6 @@
 from rest_framework import status, generics
+from rest_framework.permissions.IsAuthenticated import IsAuthenticated  # Import IsAuthenticated permission
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from .models import Post, Like
 from .serializers import PostSerializer
@@ -8,17 +8,16 @@ from notifications.models import Notification
 from django.contrib.contenttypes.models import ContentType
 
 class LikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]  # Ensuring the user is authenticated
+    permission_classes = [IsAuthenticated]  # Ensures that only authenticated users can like a post
 
     def post(self, request, pk):
         user = request.user
-        # Safely retrieve the post or return 404 if not found
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Get the post or return a 404 if not found
 
-        # Get or create the like instance, ensuring a user can only like a post once
+        # Get or create the like instance (prevents liking the post multiple times by the same user)
         like, created = Like.objects.get_or_create(user=user, post=post)
 
-        if not created:
+        if not created:  # If the like already exists, return a 400 error
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create a notification for the post's author
@@ -33,17 +32,16 @@ class LikePostView(generics.GenericAPIView):
         return Response({"detail": "Post liked!"}, status=status.HTTP_200_OK)
 
 class UnlikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]  # Ensuring the user is authenticated
+    permission_classes = [IsAuthenticated]  # Ensures that only authenticated users can unlike a post
 
     def post(self, request, pk):
         user = request.user
-        # Safely retrieve the post or return 404 if not found
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Get the post or return a 404 if not found
 
         # Check if the user has already liked the post
         like = Like.objects.filter(user=user, post=post).first()
 
-        if not like:
+        if not like:  # If no like exists, return a 400 error
             return Response({"detail": "You have not liked this post."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Delete the like
