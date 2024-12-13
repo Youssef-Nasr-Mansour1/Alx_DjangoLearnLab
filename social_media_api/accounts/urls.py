@@ -1,6 +1,7 @@
-# accounts/urls.py
 from django.urls import path
 from .views import UserRegistrationView, UserLoginView, UserProfileView
+
+app_name = 'accounts'  # Added app_name for namespacing the URLs
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
@@ -8,11 +9,3 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='profile'),
 ]
 
-# social_media_api/urls.py
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-]
