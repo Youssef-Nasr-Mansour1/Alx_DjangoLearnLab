@@ -106,6 +106,7 @@ USE_TZ = True
 
 # Static and Media files
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this line to define the static files collection directory
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -137,8 +138,6 @@ SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
-
-
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
